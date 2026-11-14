@@ -1,5 +1,7 @@
 # AETHER — Astronaut Health Companion
 
+**Live demo: <https://yasserammahgoub-code.github.io/aether/>**
+
 React + TypeScript + Tailwind CSS v4 (Vite). Charts are dependency-free custom SVG components.
 
 ## Run
@@ -9,6 +11,11 @@ npm install
 npm run dev        # http://localhost:5173
 npm run build      # type-check + production build
 ```
+
+## Voice activation
+
+- Works in Chrome and Edge, needs internet and microphone permission. If voice is unavailable, use the manual button.
+- Say "AETHER, Emergency Situation." (the word "emergency" anywhere in speech activates it).
 
 ## Structure
 
