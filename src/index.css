@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-950: #030817;
+  --color-space-900: #050d24;
+  --color-space-800: #0a1a3f;
+  --color-space-700: #0f2a5c;
+  --color-line: #1f4d96;
+  --color-ink: #e8f0ff;
+  --color-mute: #8fa8d4;
+  --color-neon-blue: #3b9dff;
+  --color-neon-cyan: #22d3ee;
+  --color-neon-green: #22e07a;
+  --color-neon-amber: #facc15;
+  --color-neon-red: #ff3b3b;
+  --color-neon-violet: #a855f7;
+  /* Emergency Mode: crimson surfaces. Sim-* (cyan) is reserved for anything simulated. */
+  --color-emg-950: #130308;
+  --color-emg-900: #200710;
+  --color-emg-800: #330b16;
+  --color-emg-700: #4d1020;
+  --color-emg-line: #b3263a;
+  --color-emg-mute: #e3a8b0;
+  --color-emg-ink: #fff0f0;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  background-color: #030817;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 78% 8%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 44% 62%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 91% 74%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 27% 90%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(ellipse at 20% 0%, #0b2a63 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, #0a2150 0%, transparent 50%),
+    linear-gradient(180deg, #040c20, #030817);
+  background-attachment: fixed;
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  position: relative;
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(10, 30, 76, 0.72), rgba(5, 15, 42, 0.8));
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 80, 170, 0.12),
+    inset 0 0 28px rgba(30, 100, 255, 0.08),
+    0 0 22px rgba(30, 100, 255, 0.12),
+    0 8px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.panel-soft {
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(10, 28, 70, 0.6), rgba(6, 16, 44, 0.65));
+}
+
+/* ---------- Hologram ---------- */
+.holo-glow {
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.7)) drop-shadow(0 0 26px rgba(37, 99, 235, 0.5));
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-30px);
+  }
+  to {
+    transform: translateY(450px);
+  }
+}
+.scanline {
+  animation: scan 4.5s linear infinite;
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.marker-ping {
+  animation: ping-soft 1.8s ease-out infinite;
+}
+
+@keyframes pulse-heart {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+.heart-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-heart 0.95s ease-in-out infinite;
+}
+
+/* ---------- Charts ---------- */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: draw 0.9s ease-out both;
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.chart-bar {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: grow 0.6s ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.chart-fade {
+  animation: fade-in 0.8s ease-out both;
+}
+
+/* ---------- ECG strip ---------- */
+.ecg {
+  height: 60px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='60' viewBox='0 0 240 60'%3E%3Cpath d='M0 34 L40 34 L48 28 L56 34 L78 34 L86 40 L94 6 L102 56 L110 34 L140 34 L152 24 L166 34 L240 34' fill='none' stroke='%2338bdf8' stroke-width='2.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 240px 60px;
+  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.9));
+  animation: ecg-scroll 3s linear infinite;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+}
+@keyframes ecg-scroll {
+  to {
+    background-position-x: -240px;
+  }
+}
+
+/* ---------- Earth (sidebar) ---------- */
+.earth {
+  background:
+    radial-gradient(circle at 62% 28%, rgba(150, 210, 255, 0.95) 0%, rgba(60, 140, 235, 0.85) 14%, rgba(20, 70, 160, 0.9) 34%, rgba(6, 24, 70, 0.98) 60%, #020818 80%);
+  box-shadow:
+    0 0 28px 4px rgba(80, 160, 255, 0.65),
+    inset -26px 18px 46px rgba(0, 0, 0, 0.65);
+}
+
+/* ---------- Emergency Mode ---------- */
+.emg-root {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(255, 40, 60, 0.34), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(30, 90, 220, 0.2), transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(110, 10, 40, 0.3), transparent 50%),
+    linear-gradient(180deg, #0a0820, #070514);
+}
+.emg-panel {
+  border: 1px solid rgba(255, 70, 90, 0.42);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(62, 12, 26, 0.82), rgba(28, 6, 18, 0.92));
+  box-shadow:
+    inset 0 0 28px rgba(255, 40, 60, 0.07),
+    0 0 20px rgba(255, 40, 60, 0.12),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+}
+/* Screen 2 uses navy panels for data entry and communication; red is kept for the checklist. */
+.emg-panel-blue {
+  --color-emg-950: #040c22;
+  --color-emg-900: #0a1a3f;
+  --color-emg-800: #0f2a5c;
+  --color-emg-700: #17428e;
+  --color-emg-line: #3b82f6;
+  --color-emg-mute: #a3bce6;
+  --color-emg-ink: #eef4ff;
+  border-color: rgba(59, 130, 246, 0.5);
+  background: linear-gradient(180deg, rgba(10, 30, 76, 0.78), rgba(5, 14, 40, 0.9));
+  box-shadow:
+    inset 0 0 28px rgba(30, 100, 255, 0.08),
+    0 0 22px rgba(30, 100, 255, 0.16),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.emg-panel-hot {
+  border-color: rgba(255, 90, 100, 0.75);
+  box-shadow:
+    inset 0 0 36px rgba(255, 40, 60, 0.12),
+    0 0 30px rgba(255, 50, 70, 0.3),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.emg-hero {
+  border: 1px solid rgba(255, 90, 100, 0.8);
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.035) 0 12px, transparent 12px 24px),
+    linear-gradient(180deg, rgba(120, 14, 34, 0.9), rgba(48, 6, 20, 0.95));
+  box-shadow:
+    inset 0 0 50px rgba(255, 40, 60, 0.16),
+    0 0 40px rgba(255, 40, 60, 0.3),
+    0 10px 36px rgba(0, 0, 0, 0.45);
+}
+.emg-hero-ok {
+  border-color: rgba(34, 224, 122, 0.7);
+  background: linear-gradient(180deg, rgba(8, 70, 48, 0.8), rgba(6, 28, 24, 0.95));
+  box-shadow: inset 0 0 40px rgba(34, 224, 122, 0.1), 0 0 34px rgba(34, 224, 122, 0.25), 0 10px 36px rgba(0, 0, 0, 0.45);
+}
+.emg-hero-off {
+  border-color: rgba(250, 204, 21, 0.6);
+  background: linear-gradient(180deg, rgba(70, 46, 10, 0.75), rgba(30, 16, 14, 0.95));
+  box-shadow: inset 0 0 40px rgba(250, 204, 21, 0.07), 0 0 28px rgba(250, 204, 21, 0.18), 0 10px 36px rgba(0, 0, 0, 0.45);
+}
+.emg-bar {
+  width: 4px;
+  min-height: 6px;
+  border-radius: 3px;
+  transition: height 120ms linear;
+}
+.emg-bar-live {
+  animation: emg-wave 1.15s ease-in-out infinite;
+}
+@keyframes emg-wave {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.emg-cat {
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.emg-cat:hover {
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .emg-cat:hover {
+    transform: none;
+  }
+}
+.emg-stripe {
+  height: 8px;
+  background: repeating-linear-gradient(-45deg, #ff3b3b 0 14px, #1a0509 14px 28px);
+}
+@keyframes emg-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(255, 59, 59, 0);
+  }
+}
+.emg-pulse {
+  animation: emg-pulse 1.6s ease-out infinite;
+}
+/* Anything simulated is drawn in dashed cyan so it can never be mistaken for a real notification. */
+.sim-box {
+  border: 1px dashed rgba(34, 211, 238, 0.7);
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(135deg, rgba(34, 211, 238, 0.07) 0 10px, transparent 10px 20px),
+    rgba(5, 28, 42, 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emg-pulse,
+  .emg-bar-live,
+  .emg-cat,
+  .scanline,
+  .marker-ping,
+  .heart-beat,
+  .ecg,
+  .chart-line,
+  .chart-bar,
+  .chart-fade {
+    animation: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
